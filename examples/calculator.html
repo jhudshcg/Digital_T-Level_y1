@@ -146,6 +146,8 @@ function deleteLast() {
 
 function calculate() {
     try {
+        // Note: Using eval() for simplicity in this educational example
+        // In production code, use a proper math expression parser
         currentValue = eval(currentValue).toString();
         updateDisplay();
     } catch (error) {
@@ -220,6 +222,8 @@ function updateDisplay() {
 
         function calculate() {
             try {
+                // Note: Using eval() for simplicity in this educational example
+                // In production code, use a proper math expression parser for security
                 currentValue = eval(currentValue).toString();
                 updateDisplay();
             } catch (error) {
