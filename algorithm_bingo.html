@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Algorithm Bingo</title>
+    <style>
+        /* Vanilla CSS for maximum compatibility with LMS Frames */
+        :root {
+            --bg-color: #111827;
+            --card-bg: #1f2937;
+            --text-main: #e5e7eb;
+            --text-muted: #9ca3af;
+            --accent-color: #4f46e5; /* Indigo */
+            --accent-hover: #4338ca;
+            --success-color: #059669; /* Green */
+            --border-color: #374151;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 800px;
+            width: 100%;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        h1 {
+            color: #818cf8;
+            margin-bottom: 5px;
+            font-size: 2rem;
+        }
+
+        .subtitle {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        /* Controls */
+        .controls {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        button {
+            padding: 10px 20px;
+            border-radius: 6px;
+            border: none;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.2s;
+            font-size: 1rem;
+        }
+
+        .btn-primary {
+            background-color: var(--accent-color);
+            color: white;
+        }
+        .btn-primary:hover { background-color: var(--accent-hover); }
+
+        .btn-secondary {
+            background-color: var(--card-bg);
+            color: var(--text-muted);
+            border: 1px solid var(--border-color);
+        }
+        .btn-secondary:hover { background-color: #374151; }
+
+        .btn-active {
+            background-color: var(--success-color) !important;
+            color: white !important;
+            border: none;
+        }
+
+        /* Panels */
+        .panel {
+            background-color: var(--card-bg);
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5);
+            border: 1px solid var(--border-color);
+            display: none; /* Hidden by default */
+        }
+        .panel.active { display: block; }
+
+        /* Bingo Grid */
+        .grid-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .bingo-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+        }
+
+        .cell {
+            background-color: #374151;
+            aspect-ratio: 1/1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 5px;
+            border-radius: 8px;
+            cursor: pointer;
+            user-select: none;
+            font-size: 0.9rem;
+            border: 1px solid var(--border-color);
+            transition: all 0.1s;
+        }
+
+        .cell:hover { background-color: #4b5563; }
+        .cell.marked {
+            background-color: var(--success-color);
+            color: white;
+            border-color: #34d399;
+        }
+
+        /* Teacher Mode */
+        .call-display {
+            background-color: var(--bg-color);
+            min-height: 120px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            border-radius: 8px;
+            border: 2px dashed var(--border-color);
+            margin-bottom: 20px;
+        }
+
+        .clue-text {
+            font-size: 1.25rem;
+            font-weight: bold;
+            color: #fcd34d; /* Yellow */
+            margin: 10px 0;
+        }
+
+        .history-badge {
+            display: inline-block;
+            background-color: #374151;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            margin: 2px;
+            border: 1px solid var(--border-color);
+        }
+        
+        .hidden { display: none; }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <h1>Algo Bingo: Characteristics</h1>
+            <div class="subtitle">T-Level Review | Merge Sort & Search</div>
+        </header>
+
+        <div class="controls">
+            <button onclick="switchMode('student')" id="btn-student" class="btn-primary">Student Mode</button>
+            <button onclick="switchMode('teacher')" id="btn-teacher" class="btn-secondary">Teacher Mode</button>
+        </div>
+
+        <!-- Student View -->
+        <div id="student-panel" class="panel active">
+            <div class="grid-header">
+                <h2 style="margin:0">Your Card</h2>
+                <button onclick="generateCard()" style="font-size: 0.8rem; padding: 5px 10px;" class="btn-secondary">Reshuffle</button>
+            </div>
+            <div id="bingo-grid" class="bingo-grid"></div>
+            <p style="text-align: center; color: var(--text-muted); font-size: 0.8rem; margin-top: 15px;">
+                Tap a box to mark it when the teacher reads a matching characteristic.
+            </p>
+        </div>
+
+        <!-- Teacher View -->
+        <div id="teacher-panel" class="panel">
+            <div style="text-align: center;">
+                <h2 style="margin-top:0; color: #818cf8;">Caller Station</h2>
+                
+                <div id="call-area" class="call-display">
+                    <span style="color: var(--text-muted);">Press 'Next' to start</span>
+                </div>
+
+                <button onclick="nextCall()" class="btn-active" style="width: 100%; font-size: 1.1rem; padding: 15px; margin-bottom: 20px;">
+                    Next Characteristic
+                </button>
+
+                <div style="text-align: left; border-top: 1px solid var(--border-color); padding-top: 15px;">
+                    <span style="font-size: 0.8rem; text-transform: uppercase; color: var(--text-muted);">Call History:</span>
+                    <div id="history-container" style="margin-top: 10px;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // --- DATA ---
+        const bingoData = [
+            // Linear Search
+            { answer: "Linear Search", clue: "Works on unsorted data" },
+            { answer: "Linear Search", clue: "Time Complexity: O(n)" },
+            { answer: "Linear Search", clue: "Best Case: O(1) (Found at start)" },
+            
+            // Binary Search
+            { answer: "Binary Search", clue: "Requires data to be SORTED" },
+            { answer: "Binary Search", clue: "Time Complexity: O(log n)" },
+            { answer: "Binary Search", clue: "Uses 'Divide and Conquer' (Search)" },
+            
+            // Shared Bubble/Insertion
+            { answer: "Bubble / Insertion Sort", clue: "Worst Case: O(n²)" },
+            { answer: "Bubble / Insertion Sort", clue: "Space Complexity: O(1) (In-place)" },
+            
+            // Specific Bubble
+            { answer: "Bubble Sort", clue: "Swaps adjacent elements repeatedly" },
+            
+            // Specific Insertion
+            { answer: "Insertion Sort", clue: "Builds a sorted sub-list one item at a time" },
+
+            // Merge Sort
+            { answer: "Merge Sort", clue: "Time Complexity: O(n log n)" },
+            { answer: "Merge Sort", clue: "Space Complexity: O(n) (Requires extra memory)" },
+            { answer: "Merge Sort", clue: "Uses Recursion" },
+            { answer: "Merge Sort", clue: "Performant on very large datasets" },
+            { answer: "Merge Sort", clue: "Uses 'Divide and Conquer' (Sort)" }
+        ];
+
+        let availableClues = [...bingoData];
+        let calledClues = [];
+
+        // --- APP LOGIC ---
+
+        function switchMode(mode) {
+            // Toggle Panels
+            document.getElementById('student-panel').classList.toggle('active', mode === 'student');
+            document.getElementById('teacher-panel').classList.toggle('active', mode === 'teacher');
+            
+            // Update Buttons
+            const btnS = document.getElementById('btn-student');
+            const btnT = document.getElementById('btn-teacher');
+            
+            if (mode === 'student') {
+                btnS.className = 'btn-primary';
+                btnT.className = 'btn-secondary';
+            } else {
+                btnS.className = 'btn-secondary';
+                btnT.className = 'btn-primary';
+            }
+        }
+
+        function generateCard() {
+            const grid = document.getElementById('bingo-grid');
+            grid.innerHTML = '';
+            
+            // Get unique answers
+            const uniqueAnswers = [...new Set(bingoData.map(item => item.answer))];
+            
+            // Fill 9 slots by repeating answers if necessary (since we only have 5 distinct algos)
+            let cardItems = [];
+            while(cardItems.length < 9) {
+                cardItems = cardItems.concat(uniqueAnswers);
+            }
+            // Shuffle and slice
+            cardItems = cardItems.sort(() => 0.5 - Math.random()).slice(0, 9);
+
+            cardItems.forEach(algo => {
+                const cell = document.createElement('div');
+                cell.className = 'cell';
+                cell.innerText = algo;
+                cell.onclick = function() {
+                    this.classList.toggle('marked');
+                };
+                grid.appendChild(cell);
+            });
+        }
+
+        function nextCall() {
+            const display = document.getElementById('call-area');
+            const history = document.getElementById('history-container');
+
+            if(availableClues.length === 0) {
+                display.innerHTML = '<span style="color:var(--success-color); font-weight:bold;">All clues called!</span>';
+                return;
+            }
+
+            // Pick random
+            const idx = Math.floor(Math.random() * availableClues.length);
+            const choice = availableClues[idx];
+            
+            // Move from available to called
+            availableClues.splice(idx, 1);
+            calledClues.push(choice);
+
+            // Update Display
+            display.innerHTML = `
+                <div style="font-size: 0.9rem; color: var(--text-muted);">Identify algorithm with:</div>
+                <div class="clue-text">"${choice.clue}"</div>
+                <div id="ans-reveal" class="hidden" style="margin-top:10px; color: #818cf8; font-weight:bold;">
+                    Answer: ${choice.answer}
+                </div>
+                <button onclick="document.getElementById('ans-reveal').classList.remove('hidden'); this.style.display='none'" 
+                        style="margin-top:10px; font-size:0.8rem; padding: 5px 10px;" class="btn-secondary">
+                    Reveal Answer
+                </button>
+            `;
+
+            // Add to History
+            const badge = document.createElement('span');
+            badge.className = 'history-badge';
+            badge.innerText = choice.clue;
+            history.prepend(badge);
+        }
+
+        // Init
+        generateCard();
+
+    </script>
+</body>
+</html>
