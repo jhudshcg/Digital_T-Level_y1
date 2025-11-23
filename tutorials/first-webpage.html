@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your First Webpage - Tutorial</title>
+    <link rel="stylesheet" href="../styles/main.css">
+    <style>
+        .content-area {
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            max-width: 900px;
+            margin: 2rem auto;
+        }
+        pre {
+            background: #f4f4f4;
+            padding: 1rem;
+            border-radius: 4px;
+            overflow-x: auto;
+            border-left: 4px solid #667eea;
+        }
+        code {
+            font-family: 'Courier New', monospace;
+            color: #e83e8c;
+        }
+        .step {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 8px;
+            border-left: 4px solid #52c41a;
+        }
+        .step h4 {
+            color: #2c3e50;
+            margin-bottom: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="container">
+                <h1>Digital T-Level Year 1</h1>
+                <ul class="nav-menu">
+                    <li><a href="../index.html">Home</a></li>
+                    <li><a href="../resources.html">Resources</a></li>
+                    <li><a href="../tutorials.html" class="active">Tutorials</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <div class="container">
+            <div class="content-area">
+                <h2>Tutorial: Your First Webpage</h2>
+                <p>In this tutorial, you'll learn how to create your very first webpage using HTML. No prior experience needed!</p>
+
+                <div class="step">
+                    <h4>Step 1: Set Up Your Environment</h4>
+                    <p>Create a new folder on your computer called "my-first-website". Open a text editor (like Notepad, VS Code, or Sublime Text).</p>
+                </div>
+
+                <div class="step">
+                    <h4>Step 2: Create an HTML File</h4>
+                    <p>Create a new file called <code>index.html</code> and save it in your folder.</p>
+                </div>
+
+                <div class="step">
+                    <h4>Step 3: Add the Basic Structure</h4>
+                    <p>Type the following code into your file:</p>
+                    <pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;title&gt;My First Webpage&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+                </div>
+
+                <div class="step">
+                    <h4>Step 4: Add a Heading</h4>
+                    <p>Inside the <code>&lt;body&gt;</code> tags, add a heading:</p>
+                    <pre><code>&lt;h1&gt;Welcome to My First Webpage!&lt;/h1&gt;</code></pre>
+                </div>
+
+                <div class="step">
+                    <h4>Step 5: Add a Paragraph</h4>
+                    <p>Below the heading, add a paragraph:</p>
+                    <pre><code>&lt;p&gt;This is my first webpage. I'm learning HTML!&lt;/p&gt;</code></pre>
+                </div>
+
+                <div class="step">
+                    <h4>Step 6: Add a List</h4>
+                    <p>Add a list of things you want to learn:</p>
+                    <pre><code>&lt;h2&gt;Things I Want to Learn:&lt;/h2&gt;
+&lt;ul&gt;
+    &lt;li&gt;HTML&lt;/li&gt;
+    &lt;li&gt;CSS&lt;/li&gt;
+    &lt;li&gt;JavaScript&lt;/li&gt;
+&lt;/ul&gt;</code></pre>
+                </div>
+
+                <div class="step">
+                    <h4>Step 7: Add an Image</h4>
+                    <p>Add an image (you can use a URL from the internet):</p>
+                    <pre><code>&lt;img src="https://via.placeholder.com/400x200" alt="Placeholder image"&gt;</code></pre>
+                </div>
+
+                <div class="step">
+                    <h4>Step 8: Save and View</h4>
+                    <p>Save your file and open it in a web browser. You should see your webpage!</p>
+                </div>
+
+                <h3>Complete Code</h3>
+                <p>Here's what your complete HTML file should look like:</p>
+                <pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;title&gt;My First Webpage&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;h1&gt;Welcome to My First Webpage!&lt;/h1&gt;
+    &lt;p&gt;This is my first webpage. I'm learning HTML!&lt;/p&gt;
+    
+    &lt;h2&gt;Things I Want to Learn:&lt;/h2&gt;
+    &lt;ul&gt;
+        &lt;li&gt;HTML&lt;/li&gt;
+        &lt;li&gt;CSS&lt;/li&gt;
+        &lt;li&gt;JavaScript&lt;/li&gt;
+    &lt;/ul&gt;
+    
+    &lt;img src="https://via.placeholder.com/400x200" alt="Placeholder image"&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+
+                <h3>Challenge</h3>
+                <p>Now try to enhance your webpage by:</p>
+                <ul>
+                    <li>Adding more headings and paragraphs</li>
+                    <li>Creating a link to your favorite website</li>
+                    <li>Adding more images</li>
+                    <li>Experimenting with different HTML tags</li>
+                </ul>
+
+                <h3>What's Next?</h3>
+                <p>Congratulations! You've created your first webpage. Next, learn how to style it with CSS in our <a href="css-styling.html">CSS Styling tutorial</a>.</p>
+
+                <p><a href="../tutorials.html" class="btn">Back to Tutorials</a></p>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Digital T-Level Year 1. Educational resources for students.</p>
+        </div>
+    </footer>
+</body>
+</html>

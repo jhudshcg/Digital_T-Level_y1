@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Calculator Example</title>
+    <link rel="stylesheet" href="../styles/main.css">
+    <style>
+        .content-area {
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            max-width: 900px;
+            margin: 2rem auto;
+        }
+        .calculator {
+            max-width: 400px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background: #f8f9fa;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .calc-display {
+            width: 100%;
+            padding: 1rem;
+            font-size: 1.5rem;
+            text-align: right;
+            border: 2px solid #667eea;
+            border-radius: 4px;
+            margin-bottom: 1rem;
+        }
+        .calc-buttons {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0.5rem;
+        }
+        .calc-btn {
+            padding: 1.5rem;
+            font-size: 1.2rem;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        .calc-btn:hover {
+            background: #5568d3;
+        }
+        .calc-btn.operator {
+            background: #764ba2;
+        }
+        .calc-btn.operator:hover {
+            background: #653a8a;
+        }
+        pre {
+            background: #f4f4f4;
+            padding: 1rem;
+            border-radius: 4px;
+            overflow-x: auto;
+            border-left: 4px solid #667eea;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="container">
+                <h1>Digital T-Level Year 1</h1>
+                <ul class="nav-menu">
+                    <li><a href="../index.html">Home</a></li>
+                    <li><a href="../resources.html" class="active">Resources</a></li>
+                    <li><a href="../tutorials.html">Tutorials</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <div class="container">
+            <div class="content-area">
+                <h2>Simple Calculator Example</h2>
+                <p>This calculator demonstrates HTML, CSS, and JavaScript working together to create an interactive web application.</p>
+
+                <div class="calculator">
+                    <input type="text" id="display" class="calc-display" readonly value="0">
+                    <div class="calc-buttons">
+                        <button class="calc-btn" onclick="clearDisplay()">C</button>
+                        <button class="calc-btn" onclick="deleteLast()">←</button>
+                        <button class="calc-btn operator" onclick="appendOperator('/')">÷</button>
+                        <button class="calc-btn operator" onclick="appendOperator('*')">×</button>
+                        
+                        <button class="calc-btn" onclick="appendNumber('7')">7</button>
+                        <button class="calc-btn" onclick="appendNumber('8')">8</button>
+                        <button class="calc-btn" onclick="appendNumber('9')">9</button>
+                        <button class="calc-btn operator" onclick="appendOperator('-')">−</button>
+                        
+                        <button class="calc-btn" onclick="appendNumber('4')">4</button>
+                        <button class="calc-btn" onclick="appendNumber('5')">5</button>
+                        <button class="calc-btn" onclick="appendNumber('6')">6</button>
+                        <button class="calc-btn operator" onclick="appendOperator('+')">+</button>
+                        
+                        <button class="calc-btn" onclick="appendNumber('1')">1</button>
+                        <button class="calc-btn" onclick="appendNumber('2')">2</button>
+                        <button class="calc-btn" onclick="appendNumber('3')">3</button>
+                        <button class="calc-btn operator" onclick="calculate()" style="grid-row: span 2;">=</button>
+                        
+                        <button class="calc-btn" onclick="appendNumber('0')" style="grid-column: span 2;">0</button>
+                        <button class="calc-btn" onclick="appendNumber('.')">.</button>
+                    </div>
+                </div>
+
+                <h3>How It Works</h3>
+                <p>This calculator uses JavaScript functions to handle user input and perform calculations. Here's the JavaScript code:</p>
+
+                <pre><code>let currentValue = '0';
+
+function appendNumber(num) {
+    if (currentValue === '0') {
+        currentValue = num;
+    } else {
+        currentValue += num;
+    }
+    updateDisplay();
+}
+
+function appendOperator(op) {
+    currentValue += op;
+    updateDisplay();
+}
+
+function clearDisplay() {
+    currentValue = '0';
+    updateDisplay();
+}
+
+function deleteLast() {
+    if (currentValue.length > 1) {
+        currentValue = currentValue.slice(0, -1);
+    } else {
+        currentValue = '0';
+    }
+    updateDisplay();
+}
+
+function calculate() {
+    try {
+        currentValue = eval(currentValue).toString();
+        updateDisplay();
+    } catch (error) {
+        currentValue = 'Error';
+        updateDisplay();
+    }
+}
+
+function updateDisplay() {
+    document.getElementById('display').value = currentValue;
+}</code></pre>
+
+                <h3>Key Concepts Demonstrated</h3>
+                <ul>
+                    <li><strong>HTML:</strong> Structure with buttons and display</li>
+                    <li><strong>CSS:</strong> Grid layout for button arrangement</li>
+                    <li><strong>JavaScript:</strong> Event handling and DOM manipulation</li>
+                    <li><strong>Functions:</strong> Reusable code for each operation</li>
+                    <li><strong>String manipulation:</strong> Building the calculation</li>
+                </ul>
+
+                <h3>Challenge</h3>
+                <p>Try enhancing this calculator by:</p>
+                <ul>
+                    <li>Adding keyboard support</li>
+                    <li>Implementing a calculation history</li>
+                    <li>Adding more advanced functions (square root, percentage)</li>
+                    <li>Improving error handling</li>
+                </ul>
+
+                <p><a href="../resources.html" class="btn">Back to Resources</a></p>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Digital T-Level Year 1. Educational resources for students.</p>
+        </div>
+    </footer>
+
+    <script>
+        let currentValue = '0';
+
+        function appendNumber(num) {
+            if (currentValue === '0') {
+                currentValue = num;
+            } else {
+                currentValue += num;
+            }
+            updateDisplay();
+        }
+
+        function appendOperator(op) {
+            currentValue += op;
+            updateDisplay();
+        }
+
+        function clearDisplay() {
+            currentValue = '0';
+            updateDisplay();
+        }
+
+        function deleteLast() {
+            if (currentValue.length > 1) {
+                currentValue = currentValue.slice(0, -1);
+            } else {
+                currentValue = '0';
+            }
+            updateDisplay();
+        }
+
+        function calculate() {
+            try {
+                currentValue = eval(currentValue).toString();
+                updateDisplay();
+            } catch (error) {
+                currentValue = 'Error';
+                updateDisplay();
+            }
+        }
+
+        function updateDisplay() {
+            document.getElementById('display').value = currentValue;
+        }
+    </script>
+</body>
+</html>
