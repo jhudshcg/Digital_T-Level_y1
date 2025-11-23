@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python Basics - Digital T-Level Year 1</title>
+    <link rel="stylesheet" href="../styles/main.css">
+    <style>
+        .content-area {
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            max-width: 900px;
+            margin: 2rem auto;
+        }
+        pre {
+            background: #f4f4f4;
+            padding: 1rem;
+            border-radius: 4px;
+            overflow-x: auto;
+            border-left: 4px solid #667eea;
+        }
+        code {
+            font-family: 'Courier New', monospace;
+            color: #e83e8c;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="container">
+                <h1>Digital T-Level Year 1</h1>
+                <ul class="nav-menu">
+                    <li><a href="../index.html">Home</a></li>
+                    <li><a href="../resources.html" class="active">Resources</a></li>
+                    <li><a href="../tutorials.html">Tutorials</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <div class="container">
+            <div class="content-area">
+                <h2>Python Basics</h2>
+                
+                <h3>What is Python?</h3>
+                <p>Python is a versatile, high-level programming language known for its simplicity and readability. It's widely used in web development, data science, automation, and more.</p>
+
+                <h3>Your First Python Program</h3>
+                <p>The classic "Hello, World!" program:</p>
+                <pre><code>print("Hello, World!")</code></pre>
+
+                <h3>Variables and Data Types</h3>
+                <p>Python supports various data types:</p>
+                <pre><code># Numbers
+age = 18
+price = 9.99
+
+# Strings
+name = "Alice"
+message = 'Hello, World!'
+
+# Booleans
+is_student = True
+is_graduated = False
+
+# Lists
+hobbies = ["reading", "coding", "gaming"]
+
+# Dictionaries
+person = {
+    "name": "Alice",
+    "age": 18,
+    "student": True
+}</code></pre>
+
+                <h3>Basic Operations</h3>
+                <pre><code># Arithmetic
+result = 10 + 5
+difference = 10 - 5
+product = 10 * 5
+quotient = 10 / 5
+
+# String concatenation
+greeting = "Hello, " + "World!"
+
+# List operations
+fruits = ["apple", "banana"]
+fruits.append("orange")  # Add item
+print(fruits[0])  # Access item</code></pre>
+
+                <h3>Control Flow</h3>
+                <p>Make decisions with if statements:</p>
+                <pre><code>age = 18
+
+if age >= 18:
+    print("You are an adult")
+elif age >= 13:
+    print("You are a teenager")
+else:
+    print("You are a child")</code></pre>
+
+                <h3>Loops</h3>
+                <p>Repeat actions with loops:</p>
+                <pre><code># For loop
+for i in range(5):
+    print(i)  # Prints 0 to 4
+
+# While loop
+count = 0
+while count < 5:
+    print(count)
+    count += 1
+
+# Loop through a list
+fruits = ["apple", "banana", "cherry"]
+for fruit in fruits:
+    print(fruit)</code></pre>
+
+                <h3>Functions</h3>
+                <p>Create reusable code blocks:</p>
+                <pre><code>def greet(name):
+    return f"Hello, {name}!"
+
+def add_numbers(a, b):
+    return a + b
+
+# Using functions
+message = greet("Alice")
+print(message)  # Hello, Alice!
+
+sum_result = add_numbers(5, 3)
+print(sum_result)  # 8</code></pre>
+
+                <h3>Practice Exercise</h3>
+                <p>Try creating a simple program that:</p>
+                <ul>
+                    <li>Asks for the user's name using <code>input()</code></li>
+                    <li>Stores their age as a variable</li>
+                    <li>Calculates their birth year</li>
+                    <li>Prints a personalized message</li>
+                </ul>
+
+                <p><a href="../resources.html" class="btn">Back to Resources</a></p>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Digital T-Level Year 1. Educational resources for students.</p>
+        </div>
+    </footer>
+</body>
+</html>
