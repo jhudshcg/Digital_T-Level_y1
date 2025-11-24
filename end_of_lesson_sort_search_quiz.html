@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search & Sort Assessment</title>
+    <style>
+        :root {
+            --bg-color: #111827;
+            --card-bg: #1f2937;
+            --text-main: #e5e7eb;
+            --accent-color: #4f46e5;
+            --success-color: #10b981;
+            --error-color: #ef4444;
+            --border-color: #374151;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.6;
+            padding: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        h1 { color: #818cf8; margin-bottom: 10px; }
+        .subtitle { color: #9ca3af; }
+
+        .question-card {
+            background-color: var(--card-bg);
+            padding: 25px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+            border: 1px solid var(--border-color);
+        }
+
+        .question-text {
+            font-weight: bold;
+            font-size: 1.1em;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        /* Radio Button Styling */
+        label.option {
+            display: block;
+            padding: 10px;
+            margin: 5px 0;
+            background: rgba(255,255,255,0.05);
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        label.option:hover { background: rgba(255,255,255,0.1); }
+        
+        input[type="radio"] { margin-right: 10px; }
+
+        /* Text Input Styling */
+        input[type="text"] {
+            background: #374151;
+            border: 1px solid #4b5563;
+            color: white;
+            padding: 8px 12px;
+            border-radius: 4px;
+            width: 100%;
+            max-width: 300px;
+            font-family: monospace;
+        }
+
+        /* Results Styling */
+        .result-message {
+            margin-top: 10px;
+            font-weight: bold;
+            font-size: 0.9em;
+            display: none; /* Hidden by default */
+        }
+        
+        .correct { color: var(--success-color); }
+        .incorrect { color: var(--error-color); }
+
+        .explanation {
+            margin-top: 5px;
+            font-size: 0.85em;
+            color: #9ca3af;
+            display: none;
+        }
+
+        /* Feedback borders */
+        .question-card.graded-correct { border-left: 5px solid var(--success-color); }
+        .question-card.graded-incorrect { border-left: 5px solid var(--error-color); }
+
+        /* Submit Button */
+        .controls { text-align: center; margin-top: 40px; }
+        
+        button {
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            border-radius: 8px;
+            font-size: 1.1em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: opacity 0.2s;
+        }
+        button:hover { opacity: 0.9; }
+
+        #score-display {
+            font-size: 2em;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>End of Lesson Assessment</h1>
+        <div class="subtitle">Search & Sort Algorithms | T-Level Review</div>
+    </header>
+
+    <div id="quiz-form">
+
+        <!-- Q1 -->
+        <div class="question-card" id="q1">
+            <span class="question-text">1. Which of the following best describes the time complexity of Merge Sort in the worst case?</span>
+            <label class="option"><input type="radio" name="q1" value="A"> O(n)</label>
+            <label class="option"><input type="radio" name="q1" value="B"> O(n²)</label>
+            <label class="option"><input type="radio" name="q1" value="C"> O(n log n)</label>
+            <label class="option"><input type="radio" name="q1" value="D"> O(log n)</label>
+            <div class="result-message"></div>
+            <div class="explanation">Merge sort always divides the list (log n) and merges (n), regardless of order.</div>
+        </div>
+
+        <!-- Q2 -->
+        <div class="question-card" id="q2">
+            <span class="question-text">2. Which sorting algorithm requires O(n) auxiliary space (is NOT in-place)?</span>
+            <label class="option"><input type="radio" name="q2" value="A"> Bubble Sort</label>
+            <label class="option"><input type="radio" name="q2" value="B"> Insertion Sort</label>
+            <label class="option"><input type="radio" name="q2" value="C"> Merge Sort</label>
+            <label class="option"><input type="radio" name="q2" value="D"> Quick Sort</label>
+            <div class="result-message"></div>
+        </div>
+
+        <!-- Q3 -->
+        <div class="question-card" id="q3">
+            <span class="question-text">3. Student A has a dataset of 1,000,000 unsorted customer records. They need to sort them by ID. Which algorithm is most suitable?</span>
+            <label class="option"><input type="radio" name="q3" value="A"> Bubble Sort</label>
+            <label class="option"><input type="radio" name="q3" value="B"> Merge Sort</label>
+            <label class="option"><input type="radio" name="q3" value="C"> Linear Search</label>
+            <label class="option"><input type="radio" name="q3" value="D"> Binary Search</label>
+            <div class="result-message"></div>
+            <div class="explanation">Bubble sort would take trillions of operations (n²). Merge sort is much faster for large n.</div>
+        </div>
+
+        <!-- Q4: Fill Blank -->
+        <div class="question-card" id="q4">
+            <span class="question-text">4. Complete the sentence: "To perform a Binary Search, the list must be _______." (one word)</span>
+            <input type="text" name="q4" placeholder="Type answer here...">
+            <div class="result-message"></div>
+        </div>
+
+        <!-- Q5 -->
+        <div class="question-card" id="q5">
+            <span class="question-text">5. An embedded system has very limited memory (RAM) but needs to sort a small list. Why is Insertion Sort preferred over Merge Sort here?</span>
+            <label class="option"><input type="radio" name="q5" value="A"> Insertion Sort is strictly faster for all sizes.</label>
+            <label class="option"><input type="radio" name="q5" value="B"> Merge Sort requires O(n) extra memory; Insertion is in-place.</label>
+            <label class="option"><input type="radio" name="q5" value="C"> Merge Sort cannot handle integers.</label>
+            <div class="result-message"></div>
+        </div>
+
+        <!-- Q6 -->
+        <div class="question-card" id="q6">
+            <span class="question-text">6. Why is the time complexity of a Linear Search described as O(n)?</span>
+            <label class="option"><input type="radio" name="q6" value="A"> Because it splits the list into n parts.</label>
+            <label class="option"><input type="radio" name="q6" value="B"> In the worst case, it checks every single item (n items) once.</label>
+            <label class="option"><input type="radio" name="q6" value="C"> Because it uses a nested loop.</label>
+            <div class="result-message"></div>
+        </div>
+
+        <!-- Q7 -->
+        <div class="question-card" id="q7">
+            <span class="question-text">7. In Merge Sort, why is the time complexity O(n log n)? Choose the best justification.</span>
+            <label class="option"><input type="radio" name="q7" value="A"> We split the list n times and merge it log n times.</label>
+            <label class="option"><input type="radio" name="q7" value="B"> The list is split log n times (levels), and at each level, we perform n operations to merge.</label>
+            <label class="option"><input type="radio" name="q7" value="C"> It is exactly n times faster than Bubble Sort.</label>
+            <div class="result-message"></div>
+        </div>
+
+        <!-- Q8 -->
+        <div class="question-card" id="q8">
+            <span class="question-text">8. You have a list of 10,000 names that is ALREADY SORTED. You add one new name. Which algorithm is best to re-sort this?</span>
+            <label class="option"><input type="radio" name="q8" value="A"> Merge Sort (always fastest)</label>
+            <label class="option"><input type="radio" name="q8" value="B"> Bubble Sort (it is random)</label>
+            <label class="option"><input type="radio" name="q8" value="C"> Insertion Sort (only needs 1 pass for new item)</label>
+            <div class="result-message"></div>
+            <div class="explanation">Insertion Sort is O(n) for nearly sorted data, which is faster than Merge Sort's O(n log n) in this specific case.</div>
+        </div>
+
+        <!-- Q9 -->
+        <div class="question-card" id="q9">
+            <span class="question-text">9. List: [5, 1, 4, 2]. What is the state after the FIRST COMPLETE PASS of a Bubble Sort?</span>
+            <label class="option"><input type="radio" name="q9" value="A"> [1, 2, 4, 5]</label>
+            <label class="option"><input type="radio" name="q9" value="B"> [1, 4, 2, 5]</label>
+            <label class="option"><input type="radio" name="q9" value="C"> [1, 5, 4, 2]</label>
+            <div class="result-message"></div>
+            <div class="explanation">Pass 1: 5 swaps with 1, then 4, then 2. The largest number (5) bubbles to the end.</div>
+        </div>
+
+        <!-- Q10: Fill Blank -->
+        <div class="question-card" id="q10">
+            <span class="question-text">10. In the first step of a Merge Sort, a list of length 8 is split into two lists of length ______ (number).</span>
+            <input type="text" name="q10">
+            <div class="result-message"></div>
+        </div>
+
+        <!-- Q11: Fill Blank -->
+        <div class="question-card" id="q11">
+            <span class="question-text">11. Perform Insertion Sort on: [5, 2, 4, 6, 1, 3]. What is the list state after the value '4' is inserted? Format: [x, x, x, x, x, x]</span>
+            <input type="text" name="q11" placeholder="[x, x, x...]">
+            <div class="result-message"></div>
+            <div class="explanation">State 1 (2 inserted): [2,5,4...]. State 2 (4 inserted): [2, 4, 5, 6, 1, 3].</div>
+        </div>
+
+        <div class="controls">
+            <div id="score-display"></div>
+            <button onclick="gradeQuiz()">Submit Answers</button>
+        </div>
+
+    </div>
+
+    <script>
+        function gradeQuiz() {
+            let score = 0;
+            const total = 11;
+            
+            // Correct Answers Key
+            const answers = {
+                q1: "C",
+                q2: "C",
+                q3: "B",
+                q4: "sorted", // Text
+                q5: "B",
+                q6: "B",
+                q7: "B",
+                q8: "C",
+                q9: "B",
+                q10: "4", // Text
+                q11: "[2, 4, 5, 6, 1, 3]" // Text
+            };
+
+            // Helper to process MC questions
+            const checkMC = (id, correctVal) => {
+                const selected = document.querySelector(`input[name="${id}"]:checked`);
+                const card = document.getElementById(id);
+                const msg = card.querySelector('.result-message');
+                const expl = card.querySelector('.explanation');
+
+                // Reset styles
+                card.classList.remove('graded-correct', 'graded-incorrect');
+                msg.style.display = 'block';
+                if(expl) expl.style.display = 'block';
+
+                if (selected && selected.value === correctVal) {
+                    score++;
+                    card.classList.add('graded-correct');
+                    msg.textContent = "Correct!";
+                    msg.className = "result-message correct";
+                } else {
+                    card.classList.add('graded-incorrect');
+                    msg.textContent = `Incorrect. The correct answer was ${correctVal}.`;
+                    msg.className = "result-message incorrect";
+                }
+            };
+
+            // Helper to process Text questions
+            const checkText = (id, correctVal) => {
+                const input = document.querySelector(`input[name="${id}"]`);
+                const card = document.getElementById(id);
+                const msg = card.querySelector('.result-message');
+                const expl = card.querySelector('.explanation');
+                
+                // Normalize: remove spaces, lowercase
+                const userVal = input.value.trim().toLowerCase(); 
+                const targetVal = correctVal.trim().toLowerCase();
+
+                card.classList.remove('graded-correct', 'graded-incorrect');
+                msg.style.display = 'block';
+                if(expl) expl.style.display = 'block';
+
+                // Simple check (handles spaces in array string by removing them for comparison)
+                const normUser = userVal.replace(/\s/g, '');
+                const normTarget = targetVal.replace(/\s/g, '');
+
+                if (normUser === normTarget) {
+                    score++;
+                    card.classList.add('graded-correct');
+                    msg.textContent = "Correct!";
+                    msg.className = "result-message correct";
+                } else {
+                    card.classList.add('graded-incorrect');
+                    msg.textContent = `Incorrect. The correct answer was ${correctVal}.`;
+                    msg.className = "result-message incorrect";
+                }
+            };
+
+            // Grading Logic
+            checkMC('q1', answers.q1);
+            checkMC('q2', answers.q2);
+            checkMC('q3', answers.q3);
+            checkText('q4', answers.q4);
+            checkMC('q5', answers.q5);
+            checkMC('q6', answers.q6);
+            checkMC('q7', answers.q7);
+            checkMC('q8', answers.q8);
+            checkMC('q9', answers.q9);
+            checkText('q10', answers.q10);
+            checkText('q11', answers.q11);
+
+            // Display Score
+            const scoreDisplay = document.getElementById('score-display');
+            scoreDisplay.textContent = `You scored: ${score} / ${total}`;
+            
+            // Scroll to bottom
+            scoreDisplay.scrollIntoView({ behavior: 'smooth' });
+        }
+    </script>
+
+</body>
+</html>
