@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Consultancy Workbook: Problem Solving</title>
+    <style>
+        :root {
+            --primary: #2c3e50;
+            --accent: #3498db;
+            --light-bg: #f8f9fa;
+            --box-border: #bdc3c7;
+            --input-bg: #eef7fb;
+            --input-border: #aed6f1;
+            --example-bg: #e9f7ef;
+            --example-border: #27ae60;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px;
+            background-color: #fff;
+        }
+
+        /* --- Header Styling --- */
+        header {
+            border-bottom: 3px solid var(--primary);
+            padding-bottom: 20px;
+            margin-bottom: 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+        }
+        h1 { margin: 0; color: var(--primary); font-size: 2.5rem; }
+        .role-badge {
+            background-color: var(--primary);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+        }
+
+        /* --- Section Styling --- */
+        h2 {
+            background-color: var(--light-bg);
+            padding: 15px;
+            border-left: 6px solid var(--accent);
+            color: var(--primary);
+            margin-top: 50px;
+            border-radius: 0 10px 10px 0;
+        }
+
+        h3 { color: var(--accent); margin-top: 30px; border-bottom: 1px dotted #ccc; padding-bottom: 5px; }
+
+        /* --- Example Zones (New) --- */
+        .example-card {
+            background-color: var(--example-bg);
+            border-left: 5px solid var(--example-border);
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+        .example-badge {
+            background-color: var(--example-border);
+            color: white;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+            display: inline-block;
+        }
+
+        /* --- Activity Zones --- */
+        .scenario-card {
+            background-color: #fffde7; /* Sticky note yellow */
+            border: 1px solid #f1c40f;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            box-shadow: 2px 2px 5px rgba(0,0,0,0.05);
+            position: relative;
+        }
+        .scenario-card::before {
+            content: "📄 YOUR TASK";
+            position: absolute;
+            top: -10px;
+            left: 20px;
+            background: #f1c40f;
+            color: #333;
+            font-size: 0.7rem;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .answer-box {
+            background-color: var(--input-bg);
+            border: 2px dashed var(--input-border);
+            padding: 15px;
+            margin: 10px 0 25px 0;
+            border-radius: 6px;
+            color: #555;
+            font-style: italic;
+            min-height: 40px;
+        }
+        .answer-box:hover { border-color: var(--accent); cursor: text; }
+
+        /* --- Visual Diagrams (CSS Only) --- */
+        .diagram-container {
+            display: flex;
+            justify-content: space-around;
+            margin: 30px 0;
+            background: white;
+            padding: 20px;
+            border: 1px solid #eee;
+            border-radius: 10px;
+        }
+        
+        .diagram-box {
+            text-align: center;
+            width: 45%;
+        }
+
+        /* Top Down Visual */
+        .td-structure { display: flex; flex-direction: column; align-items: center; gap: 5px; }
+        .td-box { border: 2px solid #e74c3c; padding: 5px 15px; border-radius: 4px; background: #fdedec; font-weight: bold; font-size: 0.9rem; }
+        .td-arrow { color: #e74c3c; font-weight: bold; }
+        .td-row { display: flex; gap: 10px; }
+
+        /* Bottom Up Visual */
+        .bu-structure { display: flex; flex-direction: column-reverse; align-items: center; gap: 5px; }
+        .bu-box { border: 2px solid #27ae60; padding: 5px 15px; border-radius: 4px; background: #eafaf1; font-weight: bold; font-size: 0.9rem; }
+        .bu-arrow { color: #27ae60; font-weight: bold; transform: rotate(180deg); }
+        .bu-row { display: flex; gap: 10px; }
+
+        /* 5 Whys Visual */
+        .why-chain { display: flex; flex-direction: column; gap: 0; margin-left: 20px; }
+        .why-step { 
+            background: #e8f6f3; 
+            border-left: 4px solid #1abc9c; 
+            padding: 10px 15px; 
+            margin-bottom: 5px;
+            position: relative;
+        }
+        .why-step::after { content: "⬇"; position: absolute; bottom: -20px; left: 20px; color: #ccc; font-size: 12px; z-index: 1; }
+        .why-step:last-child::after { content: ""; }
+
+        /* ETA Visual */
+        .eta-tree { display: flex; align-items: center; gap: 20px; margin-left: 20px; font-size: 0.9rem; }
+        .eta-node { border: 2px solid #8e44ad; padding: 10px; border-radius: 5px; background: #f4ecf7; width: 120px; text-align: center; }
+        .eta-branches { display: flex; flex-direction: column; gap: 20px; }
+        .eta-branch { display: flex; align-items: center; gap: 10px; }
+        .eta-line { width: 30px; height: 2px; background: #ccc; }
+        .eta-label { font-weight: bold; color: #8e44ad; font-size: 0.8rem; }
+        
+        /* --- Tables --- */
+        table { width: 100%; border-collapse: collapse; margin: 20px 0; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        th { background-color: var(--primary); color: white; padding: 12px; text-align: left; }
+        td { border: 1px solid #eee; padding: 12px; vertical-align: top; background: white; }
+        
+        /* Print Friendly */
+        @media print {
+            body { padding: 0; font-size: 11pt; }
+            .answer-box { border: 1px solid #999; background: none; height: 50px; }
+            h2 { background: none; border: none; border-bottom: 2px solid #000; padding-left: 0; }
+            .example-card { border: 1px solid #ccc; background: #eee; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div>
+            <div style="font-size: 0.9rem; color: #7f8c8d; text-transform: uppercase; letter-spacing: 1px;">TechCorp Consultants</div>
+            <h1>Problem Solving Strategies</h1>
+        </div>
+        <div class="role-badge">👨‍💻 Technical Consultant</div>
+    </header>
+
+    <p><strong>Mission:</strong> You have been hired to review methodology failures at "TechCorp". Use the frameworks below to diagnose issues and propose solutions.</p>
+
+    <!-- PART 1 -->
+    <h2>Part 1: Methodology Review (1.3.1 & 1.3.2)</h2>
+    <p><em>Analyze how the team is approaching the build.</em></p>
+
+    <!-- Diagram Section -->
+    <div class="diagram-container">
+        <div class="diagram-box">
+            <h3>Top-Down Approach</h3>
+            <div class="td-structure">
+                <div class="td-box">MAIN SYSTEM</div>
+                <div class="td-arrow">↓</div>
+                <div class="td-row">
+                    <div class="td-box">Sub-sys A</div>
+                    <div class="td-box">Sub-sys B</div>
+                </div>
+            </div>
+            <p><small>Start with the big picture.<br>Break it down.</small></p>
+        </div>
+
+        <div class="diagram-box">
+            <h3>Bottom-Up Approach</h3>
+            <div class="bu-structure">
+                <div class="bu-box">MAIN SYSTEM</div>
+                <div class="bu-arrow">↑</div>
+                <div class="bu-row">
+                    <div class="bu-box">Component 1</div>
+                    <div class="bu-box">Component 2</div>
+                </div>
+            </div>
+            <p><small>Start with small, reusable blocks.<br>Combine them.</small></p>
+        </div>
+    </div>
+
+    <!-- Example 1 -->
+    <div class="example-card">
+        <span class="example-badge">WORKED EXAMPLE: HOUSE BUILDING</span>
+        <p><strong>Scenario:</strong> An architect draws the blueprints for the whole house (Layout, Rooms, Roof) before anyone buys a single brick.</p>
+        <p><strong>Approach:</strong> <strong>Top-Down</strong>. They defined the full system first.</p>
+        <p><strong>Benefit:</strong> Everyone knows exactly what the final house will look like.</p>
+        <p><strong>Drawback:</strong> If they realize later that the ground is too soft for that roof, they have to redesign the whole house.</p>
+    </div>
+
+    <!-- Activity 1 -->
+    <div class="scenario-card">
+        <strong>Scenario A:</strong> TechCorp wants to build a simple Calculator App. They start by coding a perfect "Add" function and a "Subtract" function, before they even know what the Calculator looks like.
+    </div>
+
+    <p><strong>1. Which approach is this?</strong> (Top-Down, Bottom-Up, or Modularisation?)</p>
+    <div class="answer-box">[Type your answer here]</div>
+
+    <p><strong>2. Critique:</strong> Based on the example above, give one benefit and one drawback of working this way for a Calculator.</p>
+    <div class="answer-box">
+        <strong>Benefit:</strong> [Type here]<br><br>
+        <strong>Drawback:</strong> [Type here]
+    </div>
+
+    <!-- PART 2 -->
+    <h2>Part 2: Root Cause Analysis (1.3.4)</h2>
+    <p><em>When systems fail, we use specific frameworks to find the truth.</em></p>
+
+    <h3>A. The "5 Whys" Technique</h3>
+    <p><strong>Purpose:</strong> To move past symptoms (what happened) to the root cause (why it happened).</p>
+
+    <div class="example-card">
+        <span class="example-badge">WORKED EXAMPLE: LATE FOR WORK</span>
+        <div class="why-chain">
+            <div class="why-step"><strong>1. Why was I late?</strong> My car wouldn't start. (Symptom)</div>
+            <div class="why-step"><strong>2. Why wouldn't it start?</strong> The battery was dead.</div>
+            <div class="why-step"><strong>3. Why was the battery dead?</strong> The alternator is broken.</div>
+            <div class="why-step"><strong>4. Why is the alternator broken?</strong> The service belt snapped.</div>
+            <div class="why-step" style="background-color:#fadbd8; border-color:#e74c3c;"><strong>5. ROOT CAUSE:</strong> I didn't replace the service belt at the recommended mileage. (Human Error / Maintenance)</div>
+        </div>
+    </div>
+
+    <div class="scenario-card" style="border-color: #e74c3c; background-color: #fdedec;">
+        <strong>🚨 INCIDENT REPORT:</strong> The company website crashed at 9:00 AM on Monday morning.
+    </div>
+
+    <p><strong>Task:</strong> Complete the chain to find the real fix.</p>
+    <div class="why-chain">
+        <div class="why-step"><strong>1. Why did it crash?</strong> Because there was a massive spike in traffic.</div>
+        <div class="why-step"><strong>2. Why was there a spike?</strong> Because Marketing sent a newsletter to 1 million people.</div>
+        <div class="why-step"><strong>3. Why did the email crash the server?</strong> Because the server wasn't scaled up to handle the load.</div>
+        <div class="why-step" style="background-color: #e8f0fe; border-color: #3498db;">
+            <strong>4. Why wasn't it scaled up?</strong> (Hint: Did Marketing tell IT?)<br>
+            <div class="answer-box" style="margin:5px 0; min-height:20px; background:white;">[Type your answer here...]</div>
+        </div>
+        <div class="why-step" style="background-color: #fadbd8; border-color: #e74c3c;">
+            <strong>5. ROOT CAUSE (The real fix):</strong><br>
+            <div class="answer-box" style="margin:5px 0; min-height:20px; background:white;">[Type your answer here...]</div>
+        </div>
+    </div>
+
+    <br><hr><br>
+
+    <h3>B. Failure Mode & Effects Analysis (FMEA)</h3>
+    <p><strong>Purpose:</strong> To prioritize risks by analyzing their <strong>Severity</strong>. We predict "What could go wrong?" and assess "How bad would it be?" to decide on an action.</p>
+
+    <div class="example-card">
+        <span class="example-badge">WORKED EXAMPLE: COFFEE MACHINE</span>
+        <table>
+            <tr>
+                <th>Failure Mode</th>
+                <th>Effect & Severity</th>
+                <th>Action</th>
+            </tr>
+            <tr>
+                <td><strong>Filter paper tears</strong></td>
+                <td>Coffee grounds get into cup.<br><strong>Severity: Low</strong> (Bad experience, but machine still works)</td>
+                <td><strong>Log:</strong> Note to buy better filters next time.</td>
+            </tr>
+            <tr>
+                <td><strong>Heating element fails</strong></td>
+                <td>Water stays cold.<br><strong>Severity: High</strong> (Machine completely useless)</td>
+                <td><strong>Escalate:</strong> Call manufacturer immediately for replacement.</td>
+            </tr>
+        </table>
+    </div>
+
+    <p><strong>Task:</strong> Analyze the new "Login Feature". Rate the Severity (Low/High) to decide the Action.</p>
+    <table>
+        <thead>
+            <tr>
+                <th style="width: 30%">Failure Mode<br><small>(What could go wrong?)</small></th>
+                <th style="width: 40%">Effect & Severity<br><small>(Impact on user?)</small></th>
+                <th style="width: 30%">Action<br><small>(Log, Close, or Escalate?)</small></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>User forgets password</strong></td>
+                <td class="answer-box" style="border:none; margin:0;">[Effect & Severity...]</td>
+                <td class="answer-box" style="border:none; margin:0;">[Action...]</td>
+            </tr>
+            <tr>
+                <td><strong>Hacker steals entire database</strong></td>
+                <td class="answer-box" style="border:none; margin:0;">[Effect & Severity...]</td>
+                <td class="answer-box" style="border:none; margin:0;">[Action...]</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <br><hr><br>
+
+    <h3>C. Event Tree Analysis (ETA)</h3>
+    <p><strong>Purpose:</strong> A diagram showing "If X happens, then what?". It uses Boolean logic (True/False branches) to show consequences.</p>
+
+    <div class="example-card">
+        <span class="example-badge">WORKED EXAMPLE: FIRE ALARM SYSTEM</span>
+        <div class="eta-tree">
+            <div class="eta-node">Fire Starts</div>
+            <div class="eta-line"></div>
+            <div class="eta-branches">
+                <div class="eta-branch">
+                    <div class="eta-label">Detector Works? (YES)</div>
+                    <div class="eta-line"></div>
+                    <div class="eta-node" style="border-color:green;">Sprinklers On</div>
+                </div>
+                <div class="eta-branch">
+                    <div class="eta-label">Detector Works? (NO)</div>
+                    <div class="eta-line"></div>
+                    <div class="eta-node" style="border-color:red;">Building Burns</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <p><strong>Task:</strong> Draw (or describe) a simple Event Tree for a <strong>Backup System</strong>.</p>
+    <p><strong>Event:</strong> Hard Drive Fails.</p>
+    <div class="answer-box">
+        Branch 1 (Backup Exists? YES) -> Result: [Type Result]<br><br>
+        Branch 2 (Backup Exists? NO) -> Result: [Type Result]
+    </div>
+
+    <!-- PART 3 -->
+    <h2>Part 3: The Problem Solving Lifecycle (1.3.5)</h2>
+    <p><em>There are 6 standard steps to solving high-level problems.</em></p>
+
+    <div class="example-card" style="background-color: #f0f3f4; border-left-color: #555;">
+        <span class="example-badge" style="background-color: #555;">INCIDENT LOG: "THE WI-FI IS SLOW"</span>
+        <p><strong>12:00 PM:</strong> Users in Room 304 reported slow internet. (The issue starts)</p>
+        <p><strong>12:10 PM:</strong> We checked router logs, ran speed tests, and counted connected devices.</p>
+        <p><strong>12:30 PM:</strong> We compared the data. Logs showed 50 users, but the router maxes out at 30. The router is overloaded.</p>
+        <p><strong>12:45 PM:</strong> We decided to install a second router to balance the load.</p>
+        <p><strong>2:00 PM:</strong> Technician installed the new hardware.</p>
+        <p><strong>Next Day:</strong> We tested the speed again in Room 304. It is fixed.</p>
+    </div>
+
+    <p><strong>Task:</strong> Identify which part of the story above corresponds to each standard step, then order them 1-6.</p>
+
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+        <div class="answer-box">
+            ( ) Implement Solution<br>
+            ( ) Review Solution<br>
+            ( ) Make a plan of action
+        </div>
+        <div class="answer-box">
+            ( ) Gather Information<br>
+            ( ) Define the Problem<br>
+            ( ) Analyse Information
+        </div>
+    </div>
+
+</body>
+</html>
