@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Types & Formats Revision</title>
+    <style>
+        body { font-family: system-ui, sans-serif; background: #f3f4f6; display: flex; flex-direction: column; align-items: center; min-height: 100vh; margin: 0; }
+        .container { max-width: 600px; width: 100%; padding: 20px; text-align: center; }
+        
+        .card {
+            background: white;
+            height: 300px;
+            border-radius: 16px;
+            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            perspective: 1000px;
+            transition: transform 0.1s;
+            position: relative;
+            margin-bottom: 20px;
+            border: 2px solid #e5e7eb;
+        }
+
+        .card:active { transform: scale(0.98); }
+
+        .card-content {
+            padding: 20px;
+            font-size: 1.5rem;
+            color: #1f2937;
+        }
+
+        .hint { font-size: 0.9rem; color: #6b7280; margin-top: 10px; }
+        
+        .category-badge {
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #e0e7ff;
+            color: #4338ca;
+            padding: 4px 12px;
+            border-radius: 999px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        .controls { display: flex; gap: 10px; justify-content: center; }
+        
+        button {
+            background: #4f46e5;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 4px 6px -1px rgba(79, 70, 229, 0.2);
+        }
+        button:hover { background: #4338ca; }
+        button.secondary { background: white; color: #4f46e5; border: 1px solid #4f46e5; }
+        
+        .hidden { display: none; }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Data Flashcards</h1>
+        <p style="color: #6b7280;">Tap card to flip • Guess definitions</p>
+
+        <div class="card" onclick="flipCard()">
+            <div class="category-badge" id="category">Topic</div>
+            <div class="card-content" id="card-text">Loading...</div>
+            <div class="hint" id="card-hint">Tap to reveal definition</div>
+        </div>
+
+        <div class="controls">
+            <button class="secondary" onclick="prevCard()">← Previous</button>
+            <button onclick="nextCard()">Next Card →</button>
+        </div>
+        
+        <div style="margin-top: 20px;">
+            <label><input type="checkbox" id="shuffle" checked> Shuffle Mode</label>
+        </div>
+    </div>
+
+    <script>
+        const data = [
+            { cat: "Data Type", term: "Integer", def: "A whole number without a fractional part (e.g., 42)." },
+            { cat: "Data Type", term: "Real / Float", def: "A number that contains a decimal point (e.g., 3.14)." },
+            { cat: "Data Type", term: "Boolean", def: "A data type with only two possible values: True or False." },
+            { cat: "Data Type", term: "String", def: "A sequence of characters treated as text." },
+            { cat: "Data Type", term: "Blob", def: "Binary Large Object. Used to store multimedia (images, audio) in a database." },
+            { cat: "Format", term: "JSON", def: "JavaScript Object Notation. Lightweight, human-readable, uses key-value pairs." },
+            { cat: "Format", term: "XML", def: "eXtensible Markup Language. Verbose, uses <tags>, strict structure." },
+            { cat: "Format", term: "CSV", def: "Comma Separated Values. Simple text format for spreadsheets/tables." },
+            { cat: "Format", term: "Text File (.txt)", def: "Basic text file containing unformatted text strings. Universal compatibility." },
+            { cat: "Format", term: "Structured Data", def: "Data that fits into a predefined model (like a SQL table)." },
+            { cat: "Format", term: "Unstructured Data", def: "Data with no specific model (e.g., emails, video, social media posts)." },
+            { cat: "Concept", term: "ASCII", def: "7-bit character encoding. Supports 128 characters (English only)." },
+            { cat: "Concept", term: "UTF-8", def: "Variable-length encoding. Supports all global languages and Emojis." }
+        ];
+
+        let currentIndex = 0;
+        let isFlipped = false;
+        let cards = [...data];
+
+        function render() {
+            const card = cards[currentIndex];
+            const textEl = document.getElementById('card-text');
+            const catEl = document.getElementById('category');
+            const hintEl = document.getElementById('card-hint');
+
+            catEl.textContent = card.cat;
+            
+            if (isFlipped) {
+                textEl.textContent = card.def;
+                textEl.style.fontSize = "1.1rem";
+                hintEl.textContent = "Answer";
+                catEl.style.background = "#d1fae5";
+                catEl.style.color = "#065f46";
+            } else {
+                textEl.textContent = card.term;
+                textEl.style.fontSize = "2rem";
+                hintEl.textContent = "Tap to reveal definition";
+                catEl.style.background = "#e0e7ff";
+                catEl.style.color = "#4338ca";
+            }
+        }
+
+        function flipCard() {
+            isFlipped = !isFlipped;
+            render();
+        }
+
+        function nextCard() {
+            isFlipped = false;
+            currentIndex = (currentIndex + 1) % cards.length;
+            render();
+        }
+
+        function prevCard() {
+            isFlipped = false;
+            currentIndex = (currentIndex - 1 + cards.length) % cards.length;
+            render();
+        }
+
+        // Shuffle on load
+        cards.sort(() => Math.random() - 0.5);
+        render();
+
+    </script>
+</body>
+</html>
