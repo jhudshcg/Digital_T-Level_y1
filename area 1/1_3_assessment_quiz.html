@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>1.3 Strategies Assessment (Extended)</title>
+    <style>
+        body { font-family: 'Segoe UI', system-ui, sans-serif; background: #f0f2f5; padding: 20px; color: #1a1a1a; }
+        .container { max-width: 800px; margin: 0 auto; background: white; padding: 40px; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+        h1 { color: #2563eb; border-bottom: 3px solid #eee; padding-bottom: 15px; margin-top: 0; }
+        .intro { margin-bottom: 30px; color: #666; font-style: italic; }
+        
+        /* Section Headers */
+        h2 { margin-top: 40px; color: #1e40af; border-left: 5px solid #3b82f6; padding-left: 10px; font-size: 1.2em; background: #eff6ff; padding: 10px; border-radius: 0 5px 5px 0; }
+
+        .q-block { margin-bottom: 30px; padding: 20px; border: 1px solid #e5e7eb; border-radius: 8px; background: #fafafa; }
+        .q-text { font-weight: bold; margin-bottom: 15px; display: block; font-size: 1.05em; }
+        
+        .options label { display: flex; align-items: flex-start; margin: 10px 0; cursor: pointer; padding: 8px; border-radius: 4px; transition: background 0.2s; }
+        .options label:hover { background: #eef2ff; }
+        input[type="radio"] { margin-right: 12px; margin-top: 4px; transform: scale(1.2); }
+        
+        input[type="text"] { width: 100%; padding: 12px; border: 2px solid #ccc; border-radius: 6px; margin-top: 10px; box-sizing: border-box; font-size: 1em; font-family: monospace; transition: border 0.2s; }
+        input[type="text"]:focus { border-color: #2563eb; outline: none; }
+
+        button { background: #2563eb; color: white; border: none; padding: 15px 30px; border-radius: 8px; font-weight: bold; cursor: pointer; width: 100%; font-size: 1.1em; margin-top: 30px; transition: background 0.2s; }
+        button:hover { background: #1d4ed8; }
+
+        .feedback { margin-top: 15px; font-size: 0.95em; display: none; padding: 12px; border-radius: 6px; line-height: 1.5; }
+        .correct { background: #dcfce7; color: #166534; border: 1px solid #bbf7d0; }
+        .incorrect { background: #fee2e2; color: #991b1b; border: 1px solid #fecaca; }
+        
+        #score-box { text-align: center; font-size: 2em; font-weight: bold; margin-bottom: 30px; display: none; padding: 20px; background: #1e293b; color: white; border-radius: 8px; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div id="score-box"></div>
+    <h1>Problem Solving & Strategies Review</h1>
+    <p class="intro">Duration: 15 Minutes | Total Marks: 15</p>
+
+    <!-- SECTION 1: METHODOLOGIES -->
+    <h2>Part 1: Approaches to Solution Design (1.3.1 - 1.3.2)</h2>
+
+    <!-- Q1 -->
+    <div class="q-block" id="q1">
+        <span class="q-text">1. A team breaks a large "School Management System" into smaller sub-systems (Registration, Grades, Timetable) before writing any code. Which approach is this?</span>
+        <div class="options">
+            <label><input type="radio" name="q1" value="A"> Bottom-Up</label>
+            <label><input type="radio" name="q1" value="B"> Top-Down</label>
+            <label><input type="radio" name="q1" value="C"> Modularisation</label>
+        </div>
+        <div class="feedback"></div>
+    </div>
+
+    <!-- Q2 -->
+    <div class="q-block" id="q2">
+        <span class="q-text">2. Fill in the blank: "The process of breaking a complex problem down into smaller, manageable sub-problems is known as __________." (One word)</span>
+        <input type="text" id="a2" placeholder="Type answer...">
+        <div class="feedback"></div>
+    </div>
+
+    <!-- Q3 -->
+    <div class="q-block" id="q3">
+        <span class="q-text">3. Scenario: You are building a safety-critical banking app. The requirements are strict and fixed. Why is Top-Down preferred over Bottom-Up here?</span>
+        <div class="options">
+            <label><input type="radio" name="q3" value="A"> Because Top-Down is faster to code.</label>
+            <label><input type="radio" name="q3" value="B"> Because Top-Down allows you to experiment with code early.</label>
+            <label><input type="radio" name="q3" value="C"> Because Top-Down ensures all high-level requirements are met before detailed coding begins.</label>
+        </div>
+        <div class="feedback"></div>
+    </div>
+
+    <!-- Q4 -->
+    <div class="q-block" id="q4">
+        <span class="q-text">4. Which strategy involves creating reusable blocks of code (like a 'Login' function) that can be used in multiple parts of a program?</span>
+        <div class="options">
+            <label><input type="radio" name="q4" value="A"> Modularisation</label>
+            <label><input type="radio" name="q4" value="B"> FMEA</label>
+            <label><input type="radio" name="q4" value="C"> Event Tree Analysis</label>
+        </div>
+        <div class="feedback"></div>
+    </div>
+
+    <!-- Q5 -->
+    <div class="q-block" id="q5">
+        <span class="q-text">5. Critique: Complete the sentence to explain a drawback. "A major risk of the Bottom-Up approach is that..."</span>
+        <div class="options">
+            <label><input type="radio" name="q5" value="A"> ...it is difficult to test individual components.</label>
+            <label><input type="radio" name="q5" value="B"> ...you might build distinct components that do not fit together correctly at the end.</label>
+            <label><input type="radio" name="q5" value="C"> ...it requires too much planning time before coding starts.</label>
+        </div>
+        <div class="feedback"></div>
+    </div>
+
+    <!-- SECTION 2: ROOT CAUSE ANALYSIS -->
+    <h2>Part 2: Root Cause Analysis (1.3.3 - 1.3.4)</h2>
+
+    <!-- Q6 -->
+    <div class="q-block" id="q6">
+        <span class="q-text">6. Fill in the blank: "The immediate evidence of a problem (e.g., 'System Crashed') is called a __________, whereas the underlying reason for the failure is the Root Cause."</span>
+        <input type="text" id="a6" placeholder="Type answer...">
+        <div class="feedback"></div>
+    </div>
+
+    <!-- Q7 -->
+    <div class="q-block" id="q7">
+        <span class="q-text">7. Which RCA tool uses a visual diagram with boolean logic (True/False branches) to map the consequences of a specific event?</span>
+        <div class="options">
+            <label><input type="radio" name="q7" value="A"> 5 Whys</label>
+            <label><input type="radio" name="q7" value="B"> Failure Mode and Effects Analysis (FMEA)</label>
+            <label><input type="radio" name="q7" value="C"> Event Tree Analysis (ETA)</label>
+        </div>
+        <div class="feedback"></div>
+    </div>
+
+    <!-- Q8 -->
+    <div class="q-block" id="q8">
+        <span class="q-text">8. In FMEA, you calculate a 'Risk Priority Number' (RPN) to decide which failures to fix first. Which two factors are most commonly multiplied to get this number?</span>
+        <div class="options">
+            <label><input type="radio" name="q8" value="A"> Cost x Time</label>
+            <label><input type="radio" name="q8" value="B"> Severity x Likelihood (Probability)</label>
+            <label><input type="radio" name="q8" value="C"> Root Cause x Symptom</label>
+        </div>
+        <div class="feedback"></div>
+    </div>
+
+    <!-- Q9 -->
+    <div class="q-block" id="q9">
+        <span class="q-text">9. Fill in the blank: FMEA stands for "Failure Mode and _______ Analysis".</span>
+        <input type="text" id="a9" placeholder="Type answer...">
+        <div class="feedback"></div>
+    </div>
+
+    <!-- Q10 -->
+    <div class="q-block" id="q10">
+        <span class="q-text">10. Scenario: You find a minor UI glitch (low severity) that does not affect functionality. You cannot fix it today. According to 1.3.4, what is the appropriate action?</span>
+        <div class="options">
+            <label><input type="radio" name="q10" value="A"> Log it (to be fixed later)</label>
+            <label><input type="radio" name="q10" value="B"> Close it (ignore it)</label>
+            <label><input type="radio" name="q10" value="C"> Escalate it (to a manager)</label>
+        </div>
+        <div class="feedback"></div>
+    </div>
+
+    <!-- Q11 -->
+    <div class="q-block" id="q11">
+        <span class="q-text">11. Scenario: You discover a critical security breach (High Severity) that exposes user passwords. You do not have admin access to fix it. What must you do?</span>
+        <div class="options">
+            <label><input type="radio" name="q11" value="A"> Log it</label>
+            <label><input type="radio" name="q11" value="B"> Close it</label>
+            <label><input type="radio" name="q11" value="C"> Escalate it</label>
+        </div>
+        <div class="feedback"></div>
+    </div>
+
+    <!-- SECTION 3: PROBLEM SOLVING LIFECYCLE -->
+    <h2>Part 3: The Problem Solving Lifecycle (1.3.5)</h2>
+
+    <!-- Q12 -->
+    <div class="q-block" id="q12">
+        <span class="q-text">12. Justification: Why is 'Define the Problem' the absolute first step in the high-level strategy?</span>
+        <div class="options">
+            <label><input type="radio" name="q12" value="A"> Because it is the quickest step.</label>
+            <label><input type="radio" name="q12" value="B"> Because if you define the wrong problem, all subsequent work is wasted.</label>
+            <label><input type="radio" name="q12" value="C"> Because you need to gather data before you can define anything.</label>
+        </div>
+        <div class="feedback"></div>
+    </div>
+
+    <!-- Q13 -->
+    <div class="q-block" id="q13">
+        <span class="q-text">13. In the lifecycle, which step immediately follows "Gather Information"?</span>
+        <div class="options">
+            <label><input type="radio" name="q13" value="A"> Implement Solution</label>
+            <label><input type="radio" name="q13" value="B"> Analyse the Information</label>
+            <label><input type="radio" name="q13" value="C"> Plan of Action</label>
+        </div>
+        <div class="feedback"></div>
+    </div>
+
+    <!-- Q14 -->
+    <div class="q-block" id="q14">
+        <span class="q-text">14. Which step involves comparing the result of your fix against the original problem definition to ensure it actually worked?</span>
+        <div class="options">
+            <label><input type="radio" name="q14" value="A"> Make a plan of action</label>
+            <label><input type="radio" name="q14" value="B"> Implement solution</label>
+            <label><input type="radio" name="q14" value="C"> Review solution</label>
+        </div>
+        <div class="feedback"></div>
+    </div>
+
+    <!-- Q15 -->
+    <div class="q-block" id="q15">
+        <span class="q-text">15. Fill in the blank: "You cannot create a valid 'Plan of Action' until you have finished the '_______ Information' phase."</span>
+        <input type="text" id="a15" placeholder="Type answer...">
+        <div class="feedback"></div>
+    </div>
+
+    <button onclick="checkAnswers()">Submit Assessment</button>
+
+</div>
+
+<script>
+    function checkAnswers() {
+        let score = 0;
+        const total = 15;
+
+        // Key: Question ID -> Correct Value
+        const mcKey = {
+            q1: "B", // Top Down
+            q3: "C", // Top Down Justification
+            q4: "A", // Modularisation
+            q5: "B", // Bottom Up Drawback
+            q7: "C", // ETA
+            q8: "B", // RPN (Severity x Likelihood)
+            q10: "A", // Log
+            q11: "C", // Escalate
+            q12: "B", // Define Justification
+            q13: "B", // Analyse follows Gather
+            q14: "C"  // Review
+        };
+
+        // Process Multiple Choice
+        for (let q in mcKey) {
+            const selected = document.querySelector(`input[name="${q}"]:checked`);
+            const fb = document.querySelector(`#${q} .feedback`);
+            fb.style.display = "block";
+            
+            if (selected && selected.value === mcKey[q]) {
+                score++;
+                fb.className = "feedback correct";
+                fb.innerHTML = "Correct!";
+            } else {
+                fb.className = "feedback incorrect";
+                fb.innerHTML = "Incorrect.";
+            }
+        }
+
+        // Process Text Inputs
+        // Helper to check text
+        const checkText = (id, validAnswers, correctText) => {
+            const el = document.getElementById(id);
+            const userVal = el.value.trim().toLowerCase();
+            const fb = document.querySelector(`#${id.replace('a', 'q')} .feedback`); // finds #q2 .feedback for #a2
+            fb.style.display = "block";
+
+            if (validAnswers.includes(userVal)) {
+                score++;
+                fb.className = "feedback correct";
+                fb.innerHTML = "Correct!";
+            } else {
+                fb.className = "feedback incorrect";
+                fb.innerHTML = `Incorrect. Answer: ${correctText}`;
+            }
+        };
+
+        checkText('a2', ['decomposition', 'decomposing'], 'Decomposition');
+        checkText('a6', ['symptom', 'symptoms'], 'Symptom');
+        checkText('a9', ['effects', 'effect'], 'Effects');
+        checkText('a15', ['analyse', 'analyze', 'analyzing', 'analysing'], 'Analyse');
+
+        // Final Score
+        const scoreBox = document.getElementById('score-box');
+        scoreBox.style.display = "block";
+        scoreBox.innerHTML = `You scored ${score} / ${total}`;
+        
+        // Color code the score
+        if(score >= 12) scoreBox.style.background = "#166534"; // Green
+        else if(score >= 8) scoreBox.style.background = "#ca8a04"; // Yellow
+        else scoreBox.style.background = "#991b1b"; // Red
+
+        window.scrollTo(0, 0);
+    }
+</script>
+
+</body>
+</html>
